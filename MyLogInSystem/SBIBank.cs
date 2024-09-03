@@ -179,5 +179,60 @@ namespace MyLogInSystem
                 }
             }
         }
+        public static void OnlinePay(decimal account)
+        {
+            using(CompanyEntities ce=new CompanyEntities())
+            {
+                var acx = ce.Banks.Where(e => e.AccountNumber == account).FirstOrDefault();
+                if(acx != null)
+                {
+                    Console.WriteLine("Welcome To Online Payments Page\n");
+                    Console.WriteLine(" Enter Account Number of reciver Bank");
+                    decimal rev= Convert.ToDecimal(Console.ReadLine());
+                    var rec=ce.Banks.Where(e1=>e1.AccountNumber==rev).FirstOrDefault();
+                    if(rec != null)
+                    {
+                        Console.WriteLine("We found Account please Proced");
+                        Console.WriteLine("Enter Amount");
+                        double amt= Convert.ToDouble(Console.ReadLine());
+                        if (amt > rec.Balence)
+                        {
+                            rec.Balence = rec.Balence + amt;
+                            ce.SaveChanges();
+                            acx.Balence = acx.Balence - amt;
+                            ce.SaveChanges();
+                            Console.WriteLine("Amount transfored Sucussesfully");
+                            Console.WriteLine("Your Avialable Balence   :"+acx.Balence);
+                        }
+                        else
+                        {
+                            Console.WriteLine("insufficent Money in Your Account Goto MianMenu and try Again");
+                            Program.MainMenu();
+                        }
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("user not found goto MainMenu and try again");
+                        Program.MainMenu();
+
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Acount number not exist goto MainMenu try again");
+                    Program.MainMenu();
+                }
+            }
+        }
+        public static void InsertTo(string ph)
+        {
+            using(CompanyEntities sd=new CompanyEntities())
+            {
+                var emp = sd.LogInCdts.Where(e => e.PhoneNumber.Equals(ph)).FirstOrDefault();
+                sd.LogInCdts.Remove(emp);
+                //sd.SaveChanges();
+            }
+        }
     }
 }

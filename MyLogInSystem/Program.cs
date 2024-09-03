@@ -31,7 +31,7 @@ namespace MyLogInSystem
         public static void MainMenu()
         {
             Console.WriteLine(".........Our Bank Services........");
-            Console.WriteLine("1. Print passBook\n2. Deposite Money\n3. Withdrow Money\n4. Check Balence");
+            Console.WriteLine("1. Print passBook\n2. Deposite Money\n3. Withdrow Money\n4. Check Balence\n 5. Online Payment");
             int n=Convert.ToInt32(Console.ReadLine());
             switch (n)
             {
@@ -91,9 +91,10 @@ namespace MyLogInSystem
         }
         public static void Main(string[] args)
         {
-            Console.WriteLine("Welcome To Your Bank......!");
-            Program x = new Program();
-            x.Menu();
+            //Console.WriteLine("Welcome To Your Bank......!");
+            //Program x = new Program();
+            //x.Menu();
+            SBIBank.InsertTo(Console.ReadLine());
 
         }
     }
